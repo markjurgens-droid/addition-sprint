@@ -53,13 +53,12 @@ function checkAnswer() {
     return;
   }
 
-  if (!checkedThisRound) {
-    answered += 1;
-    checkedThisRound = true;
-    updateSprintProgress();
-  }
-
   if (guess === currentQuestion.answer) {
+    if (!checkedThisRound) {
+      answered += 1;
+      checkedThisRound = true;
+      updateSprintProgress();
+    }
     score += 1;
     setCardState("correct");
     feedback.textContent = "Correct! Next question coming up...";

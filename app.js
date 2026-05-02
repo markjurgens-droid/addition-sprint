@@ -8,9 +8,9 @@ const feedback = document.querySelector("#feedback");
 const questionCard = document.querySelector("#question-card");
 const nextButton = document.querySelector("#next-button");
 const restartButton = document.querySelector("#restart-button");
-const progressFill = document.querySelector("#progress-fill");
 const answeredCount = document.querySelector("#answered-count");
 const confettiLayer = document.querySelector("#confetti-layer");
+const runner = document.querySelector("#runner");
 
 const sessionLength = 10;
 const nextQuestionDelay = 900;
@@ -55,6 +55,7 @@ function checkAnswer() {
   if (!checkedThisRound) {
     answered += 1;
     checkedThisRound = true;
+    updateSprintProgress();
   }
 
   if (guess === currentQuestion.answer) {
@@ -67,9 +68,10 @@ function checkAnswer() {
   } else {
     setCardState("incorrect");
     feedback.textContent = `Not correct yet. ${currentQuestion.a} + ${currentQuestion.b} = ${currentQuestion.answer}.`;
+    stumbleRunner();
   }
 
-  updateProgress();
+  updateProgressText();
 }
 
 function nextQuestion() {
@@ -104,7 +106,8 @@ function restartSession() {
   answerInput.disabled = false;
   nextButton.disabled = false;
   updateScore();
-  updateProgress();
+  updateSprintProgress(false);
+  updateProgressText();
   renderQuestion();
 }
 
@@ -119,9 +122,27 @@ function updateScore() {
   scoreDisplay.textContent = score;
 }
 
-function updateProgress() {
+function updateProgressText() {
   answeredCount.textContent = answered;
-  progressFill.style.width = `${(answered / sessionLength) * 100}%`;
+}
+
+function updateSprintProgress(animate = true) {
+  const progress = Math.min(answered / sessionLength, 1) * 100;
+  runner.style.setProperty("--progress", `${progress}%`);
+  runner.classList.remove("runner-stumble");
+  if (animate) {
+    runner.classList.add("runner-moving");
+    setTimeout(() => runner.classList.remove("runner-moving"), 520);
+  } else {
+    runner.classList.remove("runner-moving");
+  }
+  updateProgressText();
+}
+
+function stumbleRunner() {
+  runner.classList.remove("runner-stumble");
+  runner.offsetHeight;
+  runner.classList.add("runner-stumble");
 }
 
 function scheduleNextQuestion() {
@@ -172,7 +193,7 @@ answerForm.addEventListener("submit", (event) => {
 nextButton.addEventListener("click", () => {
   if (!checkedThisRound) {
     answered += 1;
-    updateProgress();
+    updateSprintProgress();
   }
   nextQuestion();
 });

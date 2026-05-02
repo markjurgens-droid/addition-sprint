@@ -14,6 +14,7 @@ const runner = document.querySelector("#runner");
 
 const sessionLength = 10;
 const nextQuestionDelay = 900;
+const puppyRunDuration = 920;
 const confettiColors = ["#3b82d6", "#62caa7", "#ffd166", "#ff7b73", "#7b61ff"];
 let currentQuestion = createQuestion();
 let questionNumber = 1;
@@ -94,6 +95,7 @@ function finishSession() {
   answerInput.value = "";
   answerInput.disabled = true;
   nextButton.disabled = true;
+  celebrateRunner();
 }
 
 function restartSession() {
@@ -129,10 +131,10 @@ function updateProgressText() {
 function updateSprintProgress(animate = true) {
   const progress = 6 + Math.min(answered / sessionLength, 1) * 88;
   runner.style.setProperty("--progress", `${progress}%`);
-  runner.classList.remove("runner-stumble");
+  runner.classList.remove("runner-stumble", "runner-dance");
   if (animate) {
     runner.classList.add("runner-moving");
-    setTimeout(() => runner.classList.remove("runner-moving"), 520);
+    setTimeout(() => runner.classList.remove("runner-moving"), puppyRunDuration);
   } else {
     runner.classList.remove("runner-moving");
   }
@@ -140,9 +142,15 @@ function updateSprintProgress(animate = true) {
 }
 
 function stumbleRunner() {
-  runner.classList.remove("runner-stumble");
+  runner.classList.remove("runner-stumble", "runner-dance");
   runner.offsetHeight;
   runner.classList.add("runner-stumble");
+}
+
+function celebrateRunner() {
+  runner.classList.remove("runner-moving", "runner-stumble", "runner-dance");
+  runner.offsetHeight;
+  runner.classList.add("runner-dance");
 }
 
 function scheduleNextQuestion() {

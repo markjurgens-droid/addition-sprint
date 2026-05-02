@@ -411,7 +411,9 @@ button:active {
   height: var(--runner-size);
   transform: translateX(-50%);
   transform-origin: 50% 100%;
-  transition: transform 480ms cubic-bezier(0.2, 0.85, 0.25, 1.18);
+  transition:
+    left 880ms cubic-bezier(0.22, 0.9, 0.22, 1),
+    transform 220ms ease;
 }
 
 .runner span {
@@ -555,29 +557,51 @@ button:active {
 
 .runner-moving .puppy-body,
 .runner-moving .puppy-head {
-  animation: puppy-bounce 260ms ease-in-out infinite alternate;
+  animation: puppy-bounce 180ms ease-in-out infinite alternate;
 }
 
 .runner-moving .puppy-tail {
-  animation: tail-wag 170ms ease-in-out infinite alternate;
+  animation: tail-wag 120ms ease-in-out infinite alternate;
 }
 
 .runner-moving .puppy-ear {
-  animation: ear-flop 230ms ease-in-out infinite alternate;
+  animation: ear-flop 160ms ease-in-out infinite alternate;
 }
 
 .runner-moving .puppy-leg-one,
 .runner-moving .puppy-leg-three {
-  animation: puppy-stride-forward 230ms ease-in-out infinite alternate;
+  animation: puppy-stride-forward 160ms ease-in-out infinite alternate;
 }
 
 .runner-moving .puppy-leg-two,
 .runner-moving .puppy-leg-four {
-  animation: puppy-stride-back 230ms ease-in-out infinite alternate;
+  animation: puppy-stride-back 160ms ease-in-out infinite alternate;
 }
 
 .runner-stumble {
   animation: runner-stumble 520ms ease;
+}
+
+.runner-dance {
+  animation: puppy-dance 900ms ease-in-out infinite;
+}
+
+.runner-dance .puppy-tail {
+  animation: tail-wag 110ms ease-in-out infinite alternate;
+}
+
+.runner-dance .puppy-ear {
+  animation: ear-flop 190ms ease-in-out infinite alternate;
+}
+
+.runner-dance .puppy-leg-one,
+.runner-dance .puppy-leg-four {
+  animation: puppy-dance-feet 260ms ease-in-out infinite alternate;
+}
+
+.runner-dance .puppy-leg-two,
+.runner-dance .puppy-leg-three {
+  animation: puppy-dance-feet 260ms ease-in-out infinite alternate-reverse;
 }
 
 .bone-target {
@@ -662,7 +686,7 @@ button:active {
 
 @keyframes puppy-bounce {
   100% {
-    transform: translateY(-3px);
+    transform: translateY(-7px) rotate(-2deg);
   }
 }
 
@@ -680,13 +704,35 @@ button:active {
 
 @keyframes puppy-stride-forward {
   100% {
-    transform: rotate(48deg);
+    transform: rotate(66deg) translateY(-2px);
   }
 }
 
 @keyframes puppy-stride-back {
   100% {
-    transform: rotate(-48deg);
+    transform: rotate(-66deg) translateY(2px);
+  }
+}
+
+@keyframes puppy-dance {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-4deg) translateY(0);
+  }
+  25% {
+    transform: translateX(-50%) rotate(6deg) translateY(-7px);
+  }
+  50% {
+    transform: translateX(-50%) rotate(-6deg) translateY(0);
+  }
+  75% {
+    transform: translateX(-50%) rotate(7deg) translateY(-5px);
+  }
+}
+
+@keyframes puppy-dance-feet {
+  100% {
+    transform: rotate(54deg) translateY(-4px);
   }
 }
 

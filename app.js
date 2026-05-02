@@ -127,7 +127,7 @@ function updateProgressText() {
 }
 
 function updateSprintProgress(animate = true) {
-  const progress = Math.min(answered / sessionLength, 1) * 100;
+  const progress = 6 + Math.min(answered / sessionLength, 1) * 88;
   runner.style.setProperty("--progress", `${progress}%`);
   runner.classList.remove("runner-stumble");
   if (animate) {

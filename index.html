@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Addition Sprint</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="game-panel" aria-labelledby="app-title">
+        <div class="top-bar">
+          <div>
+            <p class="kicker">Grade 2 Addition</p>
+            <h1 id="app-title">Addition Sprint</h1>
+          </div>
+          <div class="score-board" aria-label="score">
+            <span class="score-label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+        </div>
+
+        <div class="mascot-stage" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="pencil">
+            <div class="pencil-tip"></div>
+            <div class="pencil-body"></div>
+            <div class="pencil-eraser"></div>
+          </div>
+          <div class="spark spark-one"></div>
+          <div class="spark spark-two"></div>
+          <div class="spark spark-three"></div>
+        </div>
+
+        <div class="question-card" id="question-card">
+          <p class="round-label">Question <span id="question-count">1</span></p>
+          <div class="problem" aria-live="polite">
+            <span id="number-a">7</span>
+            <span class="plus">+</span>
+            <span id="number-b">5</span>
+            <span class="equals">=</span>
+            <span class="answer-box">?</span>
+          </div>
+
+          <form id="answer-form" autocomplete="off">
+            <label for="answer-input">Type your answer</label>
+            <div class="answer-row">
+              <input
+                id="answer-input"
+                name="answer"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                aria-describedby="feedback"
+                maxlength="2"
+                required
+              />
+              <button type="submit">Check</button>
+            </div>
+          </form>
+
+          <p id="feedback" class="feedback" aria-live="polite">
+            Press Enter to check your answer.
+          </p>
+        </div>
+
+        <div class="controls">
+          <button id="next-button" class="secondary" type="button">Next Question</button>
+          <button id="restart-button" class="secondary" type="button">Restart</button>
+        </div>
+
+        <div class="progress-wrap" aria-label="session progress">
+          <div class="progress-track">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          <span><span id="answered-count">0</span>/10</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

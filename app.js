@@ -10,13 +10,17 @@ const nextButton = document.querySelector("#next-button");
 const restartButton = document.querySelector("#restart-button");
 const progressFill = document.querySelector("#progress-fill");
 const answeredCount = document.querySelector("#answered-count");
+const confettiLayer = document.querySelector("#confetti-layer");
 
 const sessionLength = 10;
+const nextQuestionDelay = 900;
+const confettiColors = ["#3b82d6", "#62caa7", "#ffd166", "#ff7b73", "#7b61ff"];
 let currentQuestion = createQuestion();
 let questionNumber = 1;
 let score = 0;
 let answered = 0;
 let checkedThisRound = false;
+let nextQuestionTimer = null;
 
 function createQuestion() {
   const a = randomNumber(0, 20);
@@ -56,8 +60,10 @@ function checkAnswer() {
   if (guess === currentQuestion.answer) {
     score += 1;
     setCardState("correct");
-    feedback.textContent = "Correct! Press Enter again for the next question.";
+    feedback.textContent = "Correct! Next question coming up...";
     updateScore();
+    launchConfetti();
+    scheduleNextQuestion();
   } else {
     setCardState("incorrect");
     feedback.textContent = `Not correct yet. ${currentQuestion.a} + ${currentQuestion.b} = ${currentQuestion.answer}.`;
@@ -67,6 +73,8 @@ function checkAnswer() {
 }
 
 function nextQuestion() {
+  clearNextQuestionTimer();
+
   if (answered >= sessionLength) {
     finishSession();
     return;
@@ -78,6 +86,7 @@ function nextQuestion() {
 }
 
 function finishSession() {
+  clearNextQuestionTimer();
   setCardState("correct");
   feedback.textContent = `Great work! You scored ${score} out of ${sessionLength}. Press Restart to play again.`;
   answerInput.value = "";
@@ -86,6 +95,7 @@ function finishSession() {
 }
 
 function restartSession() {
+  clearNextQuestionTimer();
   currentQuestion = createQuestion();
   questionNumber = 1;
   score = 0;
@@ -114,11 +124,45 @@ function updateProgress() {
   progressFill.style.width = `${(answered / sessionLength) * 100}%`;
 }
 
+function scheduleNextQuestion() {
+  clearNextQuestionTimer();
+  nextQuestionTimer = setTimeout(nextQuestion, nextQuestionDelay);
+}
+
+function clearNextQuestionTimer() {
+  if (nextQuestionTimer) {
+    clearTimeout(nextQuestionTimer);
+    nextQuestionTimer = null;
+  }
+}
+
+function launchConfetti() {
+  confettiLayer.replaceChildren();
+
+  for (let index = 0; index < 28; index += 1) {
+    const piece = document.createElement("span");
+    const angle = ((-80 + Math.random() * 160) * Math.PI) / 180;
+    const distance = 120 + Math.random() * 170;
+    const rotation = Math.random() * 540;
+
+    piece.className = "confetti-piece";
+    piece.style.background = confettiColors[index % confettiColors.length];
+    piece.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+    piece.style.setProperty("--y", `${Math.sin(angle) * distance - 80}px`);
+    piece.style.setProperty("--r", `${rotation}deg`);
+    piece.style.left = `${42 + Math.random() * 18}%`;
+    piece.style.top = `${42 + Math.random() * 10}%`;
+
+    confettiLayer.append(piece);
+  }
+
+  setTimeout(() => confettiLayer.replaceChildren(), 850);
+}
+
 answerForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   if (questionCard.classList.contains("correct") && checkedThisRound) {
-    nextQuestion();
     return;
   }
 

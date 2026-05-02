@@ -377,6 +377,23 @@ button:active {
   transition: width 220ms ease;
 }
 
+.confetti-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 12px;
+  height: 18px;
+  border-radius: 4px;
+  opacity: 0;
+  animation: confetti-pop 820ms ease-out forwards;
+}
+
 @keyframes pop {
   0% {
     transform: scale(1);
@@ -386,6 +403,20 @@ button:active {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes confetti-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) rotate(var(--r));
   }
 }
 

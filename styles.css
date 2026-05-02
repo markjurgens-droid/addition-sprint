@@ -512,19 +512,20 @@ button:active {
 
 .puppy-leg {
   width: 8px;
-  height: 23px;
+  height: 20px;
   border: 3px solid var(--ink);
   border-radius: 999px;
   background: #8d5a3a;
-  transform-origin: 50% 4px;
+  transform-origin: 50% 2px;
+  z-index: -1;
 }
 
 .puppy-leg::after {
   content: "";
   position: absolute;
-  left: -4px;
-  bottom: -5px;
-  width: 13px;
+  left: -5px;
+  bottom: -6px;
+  width: 14px;
   height: 8px;
   border: 3px solid var(--ink);
   border-radius: 10px;
@@ -532,27 +533,27 @@ button:active {
 }
 
 .puppy-leg-one {
-  left: 14px;
-  top: 40px;
-  transform: rotate(28deg);
+  left: 15px;
+  top: 37px;
+  transform: rotate(18deg);
 }
 
 .puppy-leg-two {
   left: 27px;
-  top: 40px;
-  transform: rotate(-28deg);
+  top: 37px;
+  transform: rotate(-18deg);
 }
 
 .puppy-leg-three {
-  left: 39px;
-  top: 39px;
-  transform: rotate(24deg);
+  left: 42px;
+  top: 36px;
+  transform: rotate(16deg);
 }
 
 .puppy-leg-four {
-  left: 50px;
-  top: 37px;
-  transform: rotate(-24deg);
+  left: 51px;
+  top: 35px;
+  transform: rotate(-16deg);
 }
 
 .runner-moving .puppy-body,
@@ -704,13 +705,13 @@ button:active {
 
 @keyframes puppy-stride-forward {
   100% {
-    transform: rotate(66deg) translateY(-2px);
+    transform: rotate(42deg) translateY(-2px);
   }
 }
 
 @keyframes puppy-stride-back {
   100% {
-    transform: rotate(-66deg) translateY(2px);
+    transform: rotate(-42deg) translateY(2px);
   }
 }
 
@@ -732,7 +733,7 @@ button:active {
 
 @keyframes puppy-dance-feet {
   100% {
-    transform: rotate(54deg) translateY(-4px);
+    transform: rotate(34deg) translateY(-4px);
   }
 }
 
